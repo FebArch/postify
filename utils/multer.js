@@ -14,7 +14,8 @@ const specialCharacters = [
 
 
 function createDirectoryIfNotExists(req){
-    const rootDirPath = path.join(__dirname, '/public')
+    const rootDirPath = path.resolve('../public/')
+    console.log("1",rootDirPath)
     let imgDir = req.body.blogTitle
   try {
       
@@ -26,11 +27,12 @@ function createDirectoryIfNotExists(req){
     }
 
     dirPath = path.join(rootDirPath, imgDir)
-    console.log(dirPath)
+    console.log("2",dirPath)
 
       // Using fs.mkdirSync with recursive option to create all parent directories if they don't exist
       if (!fs.existsSync(dirPath)) {
           fs.mkdirSync(dirPath, { recursive: true });
+          console.log("created")
           return dirPath
       }
   } catch (err) {
