@@ -7,26 +7,35 @@
 <body>
 
     <%- include('./partials/navbar.ejs') %>
-    <div class="container rounded bg-primary-subtle mt-4 p-5 d-flex flex-column justify-content-between">
+    <div class="container-fluid  bg-secondary-subtle">
+    <div class="container rounded-subtle p-5 d-flex flex-column justify-content-between">
 
         <div class="d-flex flex-column text-center justify-content-center">
             <h1 class="fs-1 fst-italic">Postify - Homepage</h1>
             <p class=" mt-3">Postify is a simple, intuitive blogging web app that lets you easily create, edit, and publish blog posts. With customizable themes and a user-friendly interface, Postify makes sharing your content effortless.</p>
-            <button type="button" class="btn btn-primary w-md-50 w-50 mx-auto my-3">Start a Blog</button>
+            <button type="button" class="btn btn-primary w-md-50 w-50 mx-auto mb-4">Start a Blog</button>
         </div>
 
 
 
-        <img src="https://www.searchenginejournal.com/wp-content/uploads/2020/08/7-ways-a-blog-can-help-your-business-right-now-5f3c06b9eb24e-1280x720.png" class="img-fluid me-4 rounded"  alt="Postify">
+        <div>
+            <img src="https://www.searchenginejournal.com/wp-content/uploads/2020/08/7-ways-a-blog-can-help-your-business-right-now-5f3c06b9eb24e-1280x720.png" class="img-fluid me-4 rounded"  alt="Postify">
+        </div>
         
     </div>
+</div>
 
-
-    <div class="container mt-5">
-        <h1>Simple, meet flexible.</h1>
-        <p class="w-75">
+    <div class="container mt-5 d-flex flex-column flex-md-row">
+        <div class="d-flex flex-column justify-content-center">
+            <h1>Simple, meet flexible.</h1>
+        <p class="">
             Whatever you’re publishing. Whoever your audience is. <i>Postify</i> makes it simple to get started. And easy to expand your site as your audience grows.
         </p>
+        </div>
+
+        <div>
+            <img src="https://wpcom.files.wordpress.com/2022/12/create-blog-window-camera.jpg" alt="" class="img-fluid rounded">
+        </div>
     </div>
     
     <%- include('./partials/footer.ejs') %>
