@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["prismaSchemaFolder"]
 }
 
@@ -14,13 +14,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Blog {
+  blog_id   Int      @id @default(autoincrement())
+  blogTitle String
+  blogBody  String
+  coverImg  String
+  createAt  DateTime @default(now())
 
+  // comment, author
+  author_id Int
+  author    User @relation(fields: [author_id], references: [user_id])
 
-model Blog{
-    id Int @id @default(autoincrement())
-    blogTitle String
-    blogBody String
-    coverImg String
-    createAt DateTime @default(now())
-    // comment, author
+}
+
+model User {
+  user_id   Int    @id
+  user_name String
+  email     String @unique
+  password  String
+  gender    Gender
+
+  blog Blog[]
+}
+
+enum Gender {
+  male
+  female
 }
