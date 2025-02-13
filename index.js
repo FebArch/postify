@@ -1,7 +1,8 @@
 const express = require("express");
 const path = require("path");
 const blogRoute = require("./routes/blogRouter");
-const homeRoute = require('./routes/homeRouter')
+const homeRoute = require('./routes/homeRouter');
+const authRoute = require('./routes/authRouter')
 const app = express();
 const PORT = 8000;
 
@@ -13,6 +14,7 @@ app.set('view engine', 'ejs')
 app.set('views', path.resolve('./views'))
 
 app.use('/', homeRoute)
+app.use('/api', authRoute)
 app.use('/blogs', blogRoute)
 
 app.listen(PORT, ()=>{
