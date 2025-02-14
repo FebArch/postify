@@ -14,7 +14,7 @@ const specialCharacters = [
 
 
 function createDirectoryIfNotExists(req){
-    const rootDirPath = path.resolve('../public/')
+    const rootDirPath = path.resolve('../postify/public')
     console.log("1",rootDirPath)
     let imgDir = req.body.blogTitle
   try {
@@ -35,6 +35,7 @@ function createDirectoryIfNotExists(req){
           console.log("created")
           return dirPath
       }
+      return dirPath
   } catch (err) {
       console.error('Error creating directory:', err);
       throw err;
