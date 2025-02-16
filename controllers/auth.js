@@ -10,9 +10,10 @@ async function handleSignupGetReq(req, res) {
 
 async function handleSignupPostReq(req, res) {
     let {username, email, password, confirmPassword, gender} = req.body;
-    let admin = req.body?.admin
-    if(admin){
-        console.log('>>', admin)
+    let role = 'user'
+
+    if (req.body.admin) {
+        role = 'admin'
     }
 
     if (password !== confirmPassword) {
@@ -29,11 +30,12 @@ async function handleSignupPostReq(req, res) {
 
     let userData = await prisma.user.create({
         data:{
-            user_name: username,
+            username,
             email,
             password: hashPassword,
             gender,
-            profileImg
+            profileImg,
+            role
         }
     });
 
@@ -49,7 +51,15 @@ async function handleLoginGetReq(req, res) {
 }
 
 async function handleLoginPostReq(req, res) {
-    
+    let {username, password} = req.body;
+    console.log(username);
+    let userData = await prisma.user.findUnique({
+        where:{
+            username
+        }
+    });
+    // console.log()
+    return res.json({userData})
 }
 
 module.exports = {

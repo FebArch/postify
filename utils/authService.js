@@ -5,7 +5,7 @@ function setUser(res, userObj){
     let jwtToken = jwt.sign(
         {
             user_id: userObj.user_id,
-            user_name: userObj.user_name,
+            user_name: userObj.username,
             gender: userObj.gender,
             profileImg: userObj.profileImg,
             role: userObj.role
