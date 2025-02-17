@@ -7,16 +7,12 @@ const path = require('path')
 
 async function handleBlogGetReq(req, res) {
     let blogData = await prisma.blog.findMany({})
-    return res.render('blogs', {blogData})
+    return res.render('blogs', {blogData, userData: req.user})
 }
 
-
-
-
-
-
+// This following function(s) is only accessible to the authenticated user
 async function handleCreateGetReq(req, res) {
-    return res.render('create')
+    return res.render('create', {userData: req.user})
 }
 
 async function handleCreatePostReq(req, res) {

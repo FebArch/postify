@@ -71,11 +71,12 @@ async function handleLoginPostReq(req, res) {
 }
 
 async function logout(req, res) {
-    clearCookie('uid')
-    return res.redirect('/home')
+    res.clearCookie('uid')
+    return res.redirect('/api/login')
 }
 
 module.exports = {
     handleSignupGetReq, handleSignupPostReq,
-    handleLoginGetReq, handleLoginPostReq
+    handleLoginGetReq, handleLoginPostReq,
+    logout
 }

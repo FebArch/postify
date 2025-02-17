@@ -5,7 +5,7 @@ async function handleHomeGetReq(req, res){
 }
 
 async function handleAboutGetReq(req, res) {
-    return res.render('about')
+    return res.render('about', {userData: req.user})
 }
 
 

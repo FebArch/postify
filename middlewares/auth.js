@@ -12,6 +12,20 @@ function setUserObjToReq(req, res, next){
     return next()
 }
 
+function restrictTo(roles=[]){
+    return function (req, res, next){
+
+        if (!req.user) {
+            return res.render("login", {authErr: "User not found! Login to continue!"})
+        }
+
+        if (!roles.includes(req.user.role)) {
+            return res.json({authErr: "Sorry You  are not authorized"})
+        }
+        return next()
+    }
+}
+
 module.exports = {
-    setUserObjToReq
+    setUserObjToReq, restrictTo
 }
