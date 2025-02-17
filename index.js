@@ -1,13 +1,18 @@
 const express = require("express");
 const path = require("path");
+const cookieParser = require("cookie-parser")
+
 const blogRoute = require("./routes/blogRouter");
 const homeRoute = require('./routes/homeRouter');
-const authRoute = require('./routes/authRouter')
+const authRoute = require('./routes/authRouter');
+
+
 const app = express();
 const PORT = 8000;
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(cookieParser())
 
 
 app.set('view engine', 'ejs')

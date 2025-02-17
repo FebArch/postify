@@ -41,7 +41,7 @@ async function handleSignupPostReq(req, res) {
 
     setUser(res, userData);
     
-    return res.render('home', {userData})
+    return res.redirect('/home')
 
 }
 
@@ -52,14 +52,22 @@ async function handleLoginGetReq(req, res) {
 
 async function handleLoginPostReq(req, res) {
     let {username, password} = req.body;
-    console.log(username);
+
     let userData = await prisma.user.findUnique({
         where:{
             username
         }
     });
-    // console.log()
-    return res.json({userData})
+
+    let result = await bcrypt.compare(password, userData.password)
+
+    if (!result) {
+        return res.render('login', {authErr: "Invalid Credentials! Retry!"})
+    }
+
+    setUser(res, userData)
+
+    return res.redirect('/home')
 }
 
 module.exports = {

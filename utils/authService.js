@@ -15,6 +15,11 @@ function setUser(res, userObj){
     return
 }
 
+function getUser(jwtToken){
+    return jwt.verify(jwtToken, process.env.jwtSecretKey)
+}
+
 module.exports = {
-    setUser
+    setUser,
+    getUser
 }

@@ -1,6 +1,12 @@
+const {getUser} = require('../utils/authService')
 
 async function handleHomeGetReq(req, res){
-    return res.render('home')
+
+    let uid = req.cookies?.uid;
+
+    let userData = getUser(uid)
+
+    return res.render('home', {userData})
 }
 
 async function handleAboutGetReq(req, res) {

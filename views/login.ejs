@@ -12,7 +12,15 @@
 
     <%- include('./partials/navbar.ejs') %>
 
-        <div class="container my-5">
+    <% if (locals.authErr) { %>
+        <div class="container my-4">
+            <div class="alert alert-danger w-75 mx-auto" role="alert">
+                <%= authErr %>
+              </div>          
+        </div>
+    <% } %>
+
+        <div class="container my-4">
             <div class="row mx-1">
                 
                 <div class="col-12 col-md-6 mx-auto p-3  border border-black rounded">
