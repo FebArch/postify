@@ -3,6 +3,16 @@
 <head>
     <title>Postify - Blogs</title>
     <%- include('./partials/head/') %>
+    <style>
+      .blog-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* Adjust the number of lines you want to show (2 or 3 lines) */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;  /* This will show "..." at the end if the text exceeds the limit */
+}
+
+    </style>
 </head>
 <body>
 
@@ -15,17 +25,17 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <% if (locals.blogData) { %>
              <% blogData.forEach(blog => { %>
-                <div class="col">
-                    <div class="card h-100">
-                      <img src="<%= blog.coverImg %>" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title"> <%= blog.blogTitle %> </h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <!-- <p class="card-text"> <%= blog.blogBody %> </p> -->
-
-                      </div>
-                    </div>
-                  </div> 
+              <div class="col">
+                <div class="card overflow-scroll h-100">
+                  <img src="<%= blog.coverImg %>" class="card-img-top" alt="...">
+                  <div class="card-body overflow-scroll">
+                    <h5 class="card-title"> <%= blog.blogTitle %> </h5>
+                    <p class="card-text blog-text"> <%= blog.blogBody %> </p>
+                    <a href="/blogs/<%= blog.blog_id %>" class="btn btn-primary">View</a>
+                  </div>
+                </div>
+              </div>
+              
              <% }) %>
             <% } %>                    
     </div>    

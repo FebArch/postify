@@ -33,20 +33,20 @@ async function handleCreatePostReq(req, res) {
 }
 
 
-async function handleGetABlogGetReq(req, res) {
-    let blog_id = req.params.blogId
+async function handleGetABlogReq(req, res) {
+    let blog_id = parseInt(req.params.blogId)
 
-    let blogData = await prisma.user.findUnique({
+    let blogData = await prisma.blog.findUnique({
         where:{
             blog_id
         }
     })
 
-    return res.json(blogData)
+    return res.json({blogData})
 }
 
 module.exports = {
     handleBlogGetReq,
     handleCreateGetReq, handleCreatePostReq,
-    handleGetABlogGetReq
+    handleGetABlogReq
 }

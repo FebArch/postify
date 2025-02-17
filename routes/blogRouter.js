@@ -4,7 +4,7 @@ const { restrictTo } = require("../middlewares/auth")
 
 const {
     handleBlogGetReq, handleCreateGetReq, handleCreatePostReq,
-    handleGetABlogGetReq
+    handleGetABlogReq
 } = require('../controllers/blog')
 
 
@@ -14,6 +14,6 @@ router.route('/').get(handleBlogGetReq)
 
 router.route('/create').get(restrictTo(['user']), handleCreateGetReq).post(upload.single('coverImg') ,handleCreatePostReq)
 
-router.route('/:blogId').get(handleGetABlogGetReq)
+router.route('/:blogId').get(handleGetABlogReq)
 
 module.exports = router
