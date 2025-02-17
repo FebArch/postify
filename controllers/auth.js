@@ -67,6 +67,11 @@ async function handleLoginPostReq(req, res) {
 
     setUser(res, userData)
 
+    return res.redirect('/home');
+}
+
+async function logout(req, res) {
+    clearCookie('uid')
     return res.redirect('/home')
 }
 
