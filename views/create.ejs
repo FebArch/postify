@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <title>Postify - Create Blog</title>
+    <style>
+      .h-textarea{
+        height: 70vh;
+      }
+    </style>
     <%- include('./partials/head.ejs') %>
 </head>
 <body>
@@ -17,13 +22,14 @@
                 <input type="text" name="blogTitle" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Blog body</label>
-                <textarea class="form-control" name="blogBody" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="coverImg" class="form-label">Cover Image</label>
+                <input type="text" name="coverImg" class="form-control" id="coverImg" placeholder="Enter Your Cover Image Url">
               </div>
-              <div>
-                <input type="file" name="coverImg" id="coverImg" />
+              <div class="mb-3">
+                <label for="blogbody" class="form-label">Blog body</label>
+                <textarea class="form-control h-textarea" name="blogBody" id="blogbody" rows="3"></textarea>
               </div>
-              <button type="submit" class="mt-4 mx-auto d-block">Upload</button>
+              <button type="submit" class="mt-4 mx-auto d-block">Post</button>
         </form>
     </div>
     <%- include('./partials/footer.ejs') %>

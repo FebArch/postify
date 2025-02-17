@@ -16,22 +16,37 @@ async function handleCreateGetReq(req, res) {
 }
 
 async function handleCreatePostReq(req, res) {
-    const {blogTitle, blogBody} = req.body
+    const {blogTitle, coverImg, blogBody} = req.body
 
     console.log(req.file)
     // console.log(`/${blogTitle}/${req.file.filename + path.extname(file.filename)}`)
     let blogData = await prisma.blog.create({
         data:{
             blogTitle, blogBody,
-            coverImg: `/${blogTitle}/${req.file.filename}`,
-            createAt: currentDate()
+            coverImg,
+            createAt: currentDate(),
+            author_id: req.user.user_id
         }
     });
 
     return res.redirect('/blogs')
 }
 
+
+async function handleGetABlogGetReq(req, res) {
+    let blog_id = req.params.blogId
+
+    let blogData = await prisma.user.findUnique({
+        where:{
+            blog_id
+        }
+    })
+
+    return res.json(blogData)
+}
+
 module.exports = {
     handleBlogGetReq,
-    handleCreateGetReq, handleCreatePostReq
+    handleCreateGetReq, handleCreatePostReq,
+    handleGetABlogGetReq
 }

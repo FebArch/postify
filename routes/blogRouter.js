@@ -3,7 +3,8 @@ const upload = require('../utils/multer')
 const { restrictTo } = require("../middlewares/auth")
 
 const {
-    handleBlogGetReq, handleCreateGetReq, handleCreatePostReq
+    handleBlogGetReq, handleCreateGetReq, handleCreatePostReq,
+    handleGetABlogGetReq
 } = require('../controllers/blog')
 
 
@@ -12,5 +13,7 @@ const router = Router()
 router.route('/').get(handleBlogGetReq)
 
 router.route('/create').get(restrictTo(['user']), handleCreateGetReq).post(upload.single('coverImg') ,handleCreatePostReq)
+
+router.route('/:blogId').get(handleGetABlogGetReq)
 
 module.exports = router

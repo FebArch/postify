@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Postify - About Me</title>
+    <%- include('./partials/head.ejs') %>
+        <style>
+            .bg-img {
+                background-image: url('/default/about.png');
+                background-size: cover;
+            }
+
+            .filter-brightness {
+                filter: brightness(50%);
+            }
+
+            .f1 {
+                font-size: 5rem;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="container-fluid my-5 d-flex flex-column flex-md-row">
+        <div class="d-flex flex-column justify-content-center">
+            <h1 class="text-info text-center">Anas A Baig</h1>
+            <hr>
+            <p class="container fs-6">
+                Owner of <i>Postify</i> <br>
+                Studying <b>Mechatronics Engineering</b> and <b>Software Development.</b> <br>
+                Built several projects independently and seeking a role to learn from experienced team
+                members.
+            </p>
+        </div>
+
+        <div>
+            <img src="/default/about.png" alt=""
+                class="img-fluid rounded">
+        </div>
+    </div>
+
+        
+        <%- include('./partials/footer.ejs') %>
+            <%- include('./partials/script.ejs') %>
+</body>
+
+</html>
