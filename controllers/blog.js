@@ -42,7 +42,7 @@ async function handleGetABlogReq(req, res) {
         }
     })
 
-    return res.json({blogData})
+    return res.render("blog", {blogData})
 }
 
 module.exports = {

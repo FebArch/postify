@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head.ejs') %>
+    <title>Postify - <%= blogData.blogTitle %></title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+
+    <div class="container-fluid">
+            
+        <div class="row">
+            <div class="col-8 mt-3 p-3">
+                <div class="container text-center">
+                    <h1 class=""> <%= blogData.blogTitle %> </h1>
+                <small> <%= blogData.createAt %> </small>
+                </div>
+                
+                <img src="<%= blogData.coverImg %>" class="img-fluid my-3" alt="">
+
+                <div class="container">
+                    <%= blogData.blogBody %>
+                </div>
+
+            </div>
+
+
+            <div class="col-4 border border-danger">
+                Column
+            </div>
+        </div>          
+    </div>
+
+
+
+
+    <%- include('./partials/footer.ejs') %>
+    <%- include('./partials/script.ejs') %>
+    
+</body>
+</html>
