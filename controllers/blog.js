@@ -1,4 +1,4 @@
-const {currentDate} = require('../utils/currentDate')
+const { currentDate } = require('../utils/currentDate')
 const { PrismaClient } = require("@prisma/client")
 const prisma = new PrismaClient()
 const path = require('path')
@@ -7,21 +7,21 @@ const path = require('path')
 
 async function handleBlogGetReq(req, res) {
     let blogData = await prisma.blog.findMany({})
-    return res.render('blogs', {blogData, userData: req.user})
+    return res.render('blogs', { blogData, userData: req.user })
 }
 
 // This following function(s) is only accessible to the authenticated user
 async function handleCreateGetReq(req, res) {
-    return res.render('create', {userData: req.user})
+    return res.render('create', { userData: req.user })
 }
 
 async function handleCreatePostReq(req, res) {
-    const {blogTitle, coverImg, blogBody} = req.body
+    const { blogTitle, coverImg, blogBody } = req.body
 
     console.log(req.file)
     // console.log(`/${blogTitle}/${req.file.filename + path.extname(file.filename)}`)
     let blogData = await prisma.blog.create({
-        data:{
+        data: {
             blogTitle, blogBody,
             coverImg,
             createAt: currentDate(),
@@ -34,19 +34,43 @@ async function handleCreatePostReq(req, res) {
 
 
 async function handleGetABlogReq(req, res) {
-    let blog_id = parseInt(req.params.blogId)
+    let blog_id = parseInt(req.params.blogId);
 
     let blogData = await prisma.blog.findUnique({
-        where:{
+        where: {
             blog_id
         }
     })
 
-    return res.render("blog", {blogData})
+    let commentData = await prisma.comments.findMany({
+        where:{
+            blogId: blog_id
+        }
+    })
+    userData = req.user
+    console.log(userData)
+    return res.render("blog", { blogData, commentData, userData })
 }
+
+
+async function handlePostACommentReq(req, res) {
+    let { commentBody } = req.body
+
+    let commentData = await prisma.comments.create({
+        data: {
+            blogId: parseInt(req.params.blogId),
+            authorId: req.user.user_id,
+            commentBody
+        }
+    })
+    console.log(commentData)
+    return res.redirect(`/blogs/${commentData.blogId}`)
+}
+
 
 module.exports = {
     handleBlogGetReq,
     handleCreateGetReq, handleCreatePostReq,
-    handleGetABlogReq
+    handleGetABlogReq,
+    handlePostACommentReq
 }

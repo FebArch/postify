@@ -24,6 +24,8 @@ model Blog {
   // comment, author
   author_id Int
   author    User @relation(fields: [author_id], references: [user_id])
+
+  comment Comments[]
 }
 
 model User {
@@ -36,7 +38,21 @@ model User {
   role       Roles  @default(user)
 
   blog Blog[]
+  comments Comments[]
 }
+
+model Comments {
+  comment_id Int @id @default(autoincrement())
+  authorId Int
+  blogId Int
+  createAt  DateTime @default(now())
+
+  commentBody String
+
+  user User @relation(fields: [authorId], references: [user_id])
+  blog Blog @relation(fields: [blogId], references: [blog_id])
+}
+
 
 enum Gender {
   male

@@ -1,41 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./partials/head.ejs') %>
-    <title>Postify - <%= blogData.blogTitle %></title>
+        <title>Postify - <%= blogData.blogTitle %>
+        </title>
+
 </head>
-<body>
+
+<body class="bg-primary-subtle">
     <%- include('./partials/navbar.ejs') %>
 
-    <div class="container-fluid">
-            
-        <div class="row">
-            <div class="col-8 mt-3 p-3">
+        <div class="container bg-primary-subtle p-3 bg-dark-subtle rounded my-4">
+
                 <div class="container text-center">
-                    <h1 class=""> <%= blogData.blogTitle %> </h1>
-                <small> <%= blogData.createAt %> </small>
+                    <h1 class="">
+                        <%= blogData.blogTitle %>
+                    </h1>
+                    <small class="d-block">
+                        <%= blogData.createAt %>
+                    </small>
+                    <img src="<%= blogData.coverImg %>" class="img-fluid d-block mx-auto my-4" alt="">
                 </div>
-                
-                <img src="<%= blogData.coverImg %>" class="img-fluid my-3" alt="">
-
-                <div class="container">
-                    <%= blogData.blogBody %>
-                </div>
-
-            </div>
-
-
-            <div class="col-4 border border-danger">
-                Column
-            </div>
-        </div>          
-    </div>
-
-
-
-
-    <%- include('./partials/footer.ejs') %>
-    <%- include('./partials/script.ejs') %>
     
+    
+                
+                    <div class="container  p-3">
+                            <%= blogData.blogBody %>
+                    </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="container ">
+            <div class="container bg-dark-subtle rounded p-3">
+                <h3>Add a new comment</h3>
+                <form action="/blogs/<%= blogData.blog_id %>" method="post">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" name="commentBody" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary my-3">Post Comment</button>
+
+                </form>
+            </div>
+
+            <div class="container my-3 bg-dark-subtle rounded p-3">
+                <h2>Comments (<%= commentData.length %>)</h2>
+                <hr>
+
+                <% commentData.forEach(comment => { %>
+                    <div class="card w-75 mb-3">
+                        <div class="card-body">
+                            <img src="<%= userData.profileImg %>" alt="Bootstrap" width="30" height="30">
+                          <span class="card-title mx-2 fw-bold fs-4"><%= userData.user_name %></span>
+                          <p class="card-text my-3 ps-3"><%= comment.commentBody %></p>
+                        </div>
+                      </div>
+                      
+                <% }) %>
+            </div>
+        </div>
+
+        <%- include('./partials/footer.ejs') %>
+            <%- include('./partials/script.ejs') %>
+
 </body>
+
 </html>
