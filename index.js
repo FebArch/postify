@@ -10,7 +10,7 @@ const authRoute = require('./routes/authRouter');
 
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares...
 app.use(express.urlencoded({ extended: false }))
