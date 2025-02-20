@@ -39,17 +39,22 @@ model User {
 
   blog Blog[]
   comments Comments[]
+
 }
 
 model Comments {
   comment_id Int @id @default(autoincrement())
-  authorId Int
+  
+  authorName String
+  authorProfileImg String
+
   blogId Int
   createAt  DateTime @default(now())
 
   commentBody String
 
-  user User @relation(fields: [authorId], references: [user_id])
+  user User @relation(fields: [authorName], references: [username])
+
   blog Blog @relation(fields: [blogId], references: [blog_id])
 }
 

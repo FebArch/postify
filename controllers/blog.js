@@ -4,9 +4,10 @@ const prisma = new PrismaClient()
 const path = require('path')
 
 
+let blogData, commentData
 
 async function handleBlogGetReq(req, res) {
-    let blogData = await prisma.blog.findMany({})
+    blogData = await prisma.blog.findMany({})
     return res.render('blogs', { blogData, userData: req.user })
 }
 
@@ -18,16 +19,19 @@ async function handleCreateGetReq(req, res) {
 async function handleCreatePostReq(req, res) {
     const { blogTitle, coverImg, blogBody } = req.body
 
-    console.log(req.file)
-    // console.log(`/${blogTitle}/${req.file.filename + path.extname(file.filename)}`)
-    let blogData = await prisma.blog.create({
-        data: {
-            blogTitle, blogBody,
-            coverImg,
-            createAt: currentDate(),
-            author_id: req.user.user_id
-        }
-    });
+
+    try {
+        blogData = await prisma.blog.create({
+            data: {
+                blogTitle, blogBody,
+                coverImg,
+                createAt: currentDate(),
+                author_id: req.user.user_id
+            }
+        });
+    } catch (error) {
+        console.log("Error while posting your blog", error)
+    }
 
     return res.redirect('/blogs')
 }
@@ -35,35 +39,48 @@ async function handleCreatePostReq(req, res) {
 
 async function handleGetABlogReq(req, res) {
     let blog_id = parseInt(req.params.blogId);
+    
+    try {
+        blogData = await prisma.blog.findUnique({
+            where: {
+                blog_id
+            }
+        })
+    } catch (error) {
+        console.log("Error fetching blog", blog_id, error)
+    }
 
-    let blogData = await prisma.blog.findUnique({
-        where: {
-            blog_id
-        }
-    })
+    try {
+        commentData = await prisma.comments.findMany({
+            where:{
+                blogId: blog_id
+            }
+        })
+    } catch (error) {
+        console.log("sorry could not load commnets for this blog", error)
+    }
+    return res.render("blog", { blogData, commentData, userData: req.user })
 
-    let commentData = await prisma.comments.findMany({
-        where:{
-            blogId: blog_id
-        }
-    })
-    userData = req.user
-    console.log(userData)
-    return res.render("blog", { blogData, commentData, userData })
 }
 
 
 async function handlePostACommentReq(req, res) {
     let { commentBody } = req.body
+    let userData = req.user
 
-    let commentData = await prisma.comments.create({
-        data: {
-            blogId: parseInt(req.params.blogId),
-            authorId: req.user.user_id,
-            commentBody
-        }
-    })
-    console.log(commentData)
+    try {
+        commentData = await prisma.comments.create({
+            data: {
+                blogId: parseInt(req.params.blogId),
+                authorName: userData.user_name,
+                authorProfileImg: userData.profileImg,
+                commentBody
+            }
+        })
+    } catch (error) {
+        console.log("sorry we didn't able to post your comment", error)
+    }
+    // console.log(commentData)
     return res.redirect(`/blogs/${commentData.blogId}`)
 }
 

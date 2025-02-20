@@ -53,10 +53,12 @@
                 <% commentData.forEach(comment => { %>
                     <div class="card w-75 mb-3">
                         <div class="card-body">
-                            <img src="<%= userData.profileImg %>" alt="Bootstrap" width="30" height="30">
-                          <span class="card-title mx-2 fw-bold fs-4"><%= userData.user_name %></span>
-                          <p class="card-text my-3 ps-3"><%= comment.commentBody %></p>
+                            <img src="<%= comment.authorProfileImg %>" alt="Bootstrap" width="30" height="30">
+                          <span class="card-title mx-2 fw-bold fs-4"><%= comment.authorName %></span>
+                          <small><%= comment.createAt %></small>
                         </div>
+                        <p class="card-text my-3 ps-3"><%= comment.commentBody %></p>
+
                       </div>
                       
                 <% }) %>
